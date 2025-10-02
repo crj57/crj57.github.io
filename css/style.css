@@ -242,6 +242,7 @@ ol {
 	display: table;
 	width: 100%;
 	background: #40424a;
+	margin-bottom: 5rem;
 }
 
 .fact-box.trans {
@@ -367,7 +368,7 @@ ol {
 -----------------------*/
 .header-section {
 	padding: 50px 40px;
-	background: #f2f7f8;
+	background-color: rgba(43, 47, 48, 0.5);
 }
 
 .site-logo h2 {
@@ -375,7 +376,7 @@ ol {
 }
 
 .site-logo h2 a {
-	color: #40424a;
+	color: #4042;
 }
 
 .site-logo p {
