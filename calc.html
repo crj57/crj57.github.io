@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Pharmacy Calculator</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Civic - CV Resume">
+	<meta name="keywords" content="resume, civic, onepage, creative, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->   
+	<link href="img/favicon.ico" rel="shortcut icon"/>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i,700" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="css/flaticon.css"/>
+	<link rel="stylesheet" href="css/owl.carousel.css"/>
+	<link rel="stylesheet" href="css/magnific-popup.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+
+
+
+
+</head>
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+	
+	<!-- Header section start -->
+	<header class="header-section">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4">
+                    <h1>Pharmacy Calculator</h1>
+				</div>
+				<div class="col-md-8 text-md-right header-buttons">
+					<a href="index.html" class="site-btn">Home</a>
+					<!--<a href="#" class="site-btn">Discover me</a> -->
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- Header section end -->
+
+    <p>Disclaimer: Calculations must be re-checked and should not be used alone to guide patient care, nor should they substitute for clinical judgment.</p>
+
+    <div class="pediatric">
+        <h2>Pediatric Dose Calculation</h2> 
+        <div class="pain-fever">
+            <h3>Pain/Fever Medications</h3>
+            <label for="medication">Choose Medication:</label>
+            <input type="radio" id="acetaminophen" name="medication" value="acetaminophen" checked>
+            <label for="acetaminophen">Acetaminophen (10-15 mg/kg)</label>
+            <input type="radio" id="ibuprofen" name="medication" value="ibuprofen">
+            <label for="ibuprofen">Ibuprofen (5-10 mg/kg)</label><br>
+            <label for="weight1">Weight:</label>
+            <input type="number" id="weight1" placeholder="Weight in kg"><br>
+        
+        
+        <button onclick="calculateDose()">Calculate Dose</button>
+
+        <p id="result"></p>
+        </div>
+        <div class="antibiotics">
+            <h3>Antibiotics</h3>
+            <p>Coming soon...</p>
+        </div>
+    </div>
+
+    <script>
+
+
+        function calculateDose() {
+        const weight = parseFloat(document.getElementById("weight1").value);
+        const medication = document.querySelector('input[name="medication"]:checked').value;
+        if (isNaN(weight) || weight <= 0) {
+            document.getElementById("result").textContent = "Please enter valid numbers.";
+            return;
+        }
+        if (medication === "acetaminophen") {
+            const minDose = 10 * weight;
+            const maxDose = 15 * weight;
+            const answer = 
+            document.getElementById("result").textContent = `Acetaminophen dose: ${minDose} mg - ${maxDose} mg \nFor liquid form (160 mg/5 mL): ${ (minDose / 160 * 5).toFixed(2) } mL - ${ (maxDose / 160 * 5).toFixed(2) } mL \nDose every 4-6 hours as needed. Do not exceed 5 doses in 24 hours.`;
+            if (maxDose * 5 > 3000){
+                document.getElementById("result").textContent += "\n**Warning: Daily dose exceeds 3000 mg. Consult a healthcare professional.**";
+            }
+            return;
+
+        } else if (medication === "ibuprofen") {
+            const minDose = 5 * weight;
+            const maxDose = 10 * weight;
+            document.getElementById("result").textContent = `Ibuprofen dose: ${minDose} mg - ${maxDose} mg\nFor liquid form (100 mg/5 mL): ${ (minDose / 100 * 5).toFixed(2) } mL - ${ (maxDose / 100 * 5).toFixed(2) } mL \nDose every 6-8 hours as needed.`;
+            if (maxDose * 4 > 2400){
+                document.getElementById("result").textContent += "\n**Warning: Daily dose exceeds 2400 mg. Consult a healthcare professional.**";
+            }
+            return;
+        }
+        
+        }
+    </script>
+
+
+
+	<!-- Footer section start -->
+	<footer class="footer-section">
+		<div class="container text-center">
+			<div class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distirbuted by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+</div>
+		</div>
+	</footer>
+	<!-- Footer section end -->
+
+
+	<!--====== Javascripts & Jquery ======-->
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/magnific-popup.min.js"></script>
+	<script src="js/circle-progress.min.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>

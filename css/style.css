@@ -25,6 +25,10 @@ h6 {
 	font-weight: 600;
 	font-family: 'Josefin Sans', sans-serif;
 }
+h1 {
+	font-size: 72px;
+}
+
 
 h2 {
 	font-size: 48px;
@@ -1436,3 +1440,8 @@ ol {
 		padding-top: 250px;
 	}
 }
+
+/*calc page*/
+#result { 
+	white-space: pre-wrap; 
+ }
