@@ -19,6 +19,16 @@
 	<link rel="stylesheet" href="css/owl.carousel.css"/>
 	<link rel="stylesheet" href="css/magnific-popup.css"/>
 	<link rel="stylesheet" href="css/style.css"/>
+    <style >
+        .warning {
+            color: rgb(94, 32, 32);
+            margin-left: 20px;
+        }
+
+        .warning::before {
+            content: "⚠️";
+        }   
+    </style>
 
 
 
@@ -50,6 +60,8 @@
 
     <div class="pediatric">
         <h2>Pediatric Dose Calculation</h2> 
+        <label for="weight1">Weight:</label>
+        <input type="number" id="weight1" placeholder="Weight in kg"><br>
         <div class="pain-fever">
             <h3>Pain/Fever Medications</h3>
             <label for="medication">Choose Medication:</label>
@@ -57,52 +69,102 @@
             <label for="acetaminophen">Acetaminophen (10-15 mg/kg)</label>
             <input type="radio" id="ibuprofen" name="medication" value="ibuprofen">
             <label for="ibuprofen">Ibuprofen (5-10 mg/kg)</label><br>
-            <label for="weight1">Weight:</label>
-            <input type="number" id="weight1" placeholder="Weight in kg"><br>
-        
-        
-        <button onclick="calculateDose()">Calculate Dose</button>
-
-        <p id="result"></p>
         </div>
+
         <div class="antibiotics">
             <h3>Antibiotics</h3>
-            <p>Coming soon...</p>
+            <label for="medication">Choose Medication:</label>
+            <input type="radio" id="amoxicillin" name="medication" value="amoxicillin" checked>   
+            <label for="amoxicillin">Amoxicillin (max 90mg/kg/day)</label>    
         </div>
+        <button onclick="calculateDose()">Calculate Dose</button>
+        <p id="result"></p>
+    </div>
+    <div>   
+        <h2>Clavulanate Total Daily Dose Check</h2>
+        <label for="amoxDose">Total Daily Amoxicillin Dose:</label>
+        <input type="number" id="amoxDose" placeholder="Dose in mg"><br>
+        <label for="weight2">Weight:</label>
+        <input type="number" id="weight2" placeholder="Weight in kg"><br>
+        <button onClick="calculateClav()">Calculate Clavulanate</button>
+        <p id="clavResult"></p>
     </div>
 
     <script>
 
 
         function calculateDose() {
-        const weight = parseFloat(document.getElementById("weight1").value);
-        const medication = document.querySelector('input[name="medication"]:checked').value;
-        if (isNaN(weight) || weight <= 0) {
-            document.getElementById("result").textContent = "Please enter valid numbers.";
-            return;
-        }
-        if (medication === "acetaminophen") {
-            const minDose = 10 * weight;
-            const maxDose = 15 * weight;
-            const answer = 
-            document.getElementById("result").textContent = `Acetaminophen dose: ${minDose} mg - ${maxDose} mg \nFor liquid form (160 mg/5 mL): ${ (minDose / 160 * 5).toFixed(2) } mL - ${ (maxDose / 160 * 5).toFixed(2) } mL \nDose every 4-6 hours as needed. Do not exceed 5 doses in 24 hours.`;
-            if (maxDose * 5 > 3000){
-                document.getElementById("result").textContent += "\n**Warning: Daily dose exceeds 3000 mg. Consult a healthcare professional.**";
+            const weight = parseFloat(document.getElementById("weight1").value);
+            const medication = document.querySelector('input[name="medication"]:checked').value;
+            const result = document.getElementById("result");
+            result.innerHTML = "";
+            if (isNaN(weight) || weight <= 0) {
+                result.innerHTML += `<p>Please enter valid numbers.</p>`;
+                return;
             }
-            return;
+            if (medication === "acetaminophen") {
+                const minDose = 10 * weight;
+                const maxDose = 15 * weight;
+                result.innerHTML +=`Acetaminophen dose: ${minDose} mg - ${maxDose} mg <br>For liquid form (160 mg/5 mL): ${ (minDose / 160 * 5).toFixed(2) } mL - ${ (maxDose / 160 * 5).toFixed(2) } mL<br>Dose every 4-6 hours as needed. Do not exceed 5 doses in 24 hours.`;
+                if (maxDose * 5 > 3000){
+                    result.innerHTML += `<br><span class="warning">Warning: Daily dose exceeds 3000 mg. Consult a healthcare professional.**</span>`;
+                }
+                return;
 
-        } else if (medication === "ibuprofen") {
-            const minDose = 5 * weight;
-            const maxDose = 10 * weight;
-            document.getElementById("result").textContent = `Ibuprofen dose: ${minDose} mg - ${maxDose} mg\nFor liquid form (100 mg/5 mL): ${ (minDose / 100 * 5).toFixed(2) } mL - ${ (maxDose / 100 * 5).toFixed(2) } mL \nDose every 6-8 hours as needed.`;
-            if (maxDose * 4 > 2400){
-                document.getElementById("result").textContent += "\n**Warning: Daily dose exceeds 2400 mg. Consult a healthcare professional.**";
+            } else if (medication === "ibuprofen") {
+                const minDose = 5 * weight;
+                const maxDose = 10 * weight;
+                result.innerHTML += `Ibuprofen dose: ${minDose} mg - ${maxDose} mg\nFor liquid form (100 mg/5 mL): ${ (minDose / 100 * 5).toFixed(2) } mL - ${ (maxDose / 100 * 5).toFixed(2) } mL \nDose every 6-8 hours as needed.`;
+                if (maxDose * 4 > 2400){
+                    result.innerHTML += `<br><span class="warning">**Warning: Daily dose exceeds 2400 mg. Consult a healthcare professional.**</span>`;
+                }
+                return;
+            } else if (medication ==="amoxicillin") {
+                const dailyDose = 90 * weight;
+                result.innerHTML += `Amoxicillin Max daily dose: ${dailyDose} mg`;
+                result.innerHTML += `<br>Liquid form (125mg/5ml): ${(dailyDose / 125 * 5).toFixed(2)} mL/day<br>Liquid form (250mg/5ml): ${(dailyDose / 250 * 5).toFixed(2)} mL/day<br>Liquid form (400mg/5ml): ${(dailyDose / 400 * 5).toFixed(2)} mL/day`;
+                if (dailyDose > 4000){
+                    result.innerHTML += `<br><span class="warning">**Warning: Daily dose exceeds 4000 mg. Consult a healthcare professional.**</span>`;
+                }
+                return;
             }
-            return;
-        }
-        
-        }
-    </script>
+                 
+                return;
+        }   
+
+            function calculateClav(){
+                const amoxDose = parseFloat(document.getElementById("amoxDose").value);
+                const weight = parseFloat(document.getElementById("weight2").value);
+                const result = document.getElementById("clavResult");
+                result.innerHTML = "";
+                if (isNaN(weight) || weight <= 0 || isNaN(amoxDose) || amoxDose <= 0) {
+                    result.innerHTML = `<p>Please enter valid numbers.</p>`;
+                    return;
+                }
+                
+                result.innerHTML += 
+                    `Liquid form (125mg/31.25mg/5ml): ${(amoxDose / 125 * 5).toFixed(2)} ml/day, Clavulanate total daily dose: ${(amoxDose / 125 * 31.25).toFixed(2)} mg or ${(amoxDose / 125 * 31.25 / (weight)).toFixed(2)} mg/kg/day`;
+                if ((amoxDose / 125 * 31.25) > 6.4 * weight ){
+                    result.innerHTML += `<br><span class="warning">**Warning: Clavulanate dose exceeds 6.4 mg/kg/day. Consult a healthcare professional.**</span>`;
+                }
+                result.innerHTML += `<br>Liquid form (200mg/28.5mg/5ml): ${(amoxDose / 200 * 5).toFixed(2)} ml/day, Clavulanate total daily dose: ${(amoxDose / 200 * 28.5).toFixed(2)} mg or ${(amoxDose / 200 * 28.5 / (weight)).toFixed(2)} mg/kg/day`;
+                if ((amoxDose / 200 * 28.5) > 6.4 * weight ){
+                    result.innerHTML += `<br><span class="warning">**Warning: Clavulanate dose exceeds 6.4 mg/kg/day. Consult a healthcare professional.**</span>`;
+                }
+                result.innerHTML += `<br>Liquid form (250mg/62.5mg/5ml): ${(amoxDose / 250 * 5).toFixed(2)} ml/day, Clavulanate total daily dose: ${(amoxDose / 250 * 62.5).toFixed(2)} mg or ${(amoxDose / 250 * 62.5 / (weight)).toFixed(2)} mg/kg/day`;
+                if ((amoxDose / 250 * 62.5) > 6.4 * weight ){
+                    result.innerHTML += `<br><span class="warning">**Warning: Clavulanate dose exceeds 6.4 mg/kg/day. Consult a healthcare professional.**</span>`;
+                }
+                result.innerHTML += `<br>Liquid form (400mg/57mg/5ml): ${(amoxDose / 400 * 5).toFixed(2)} ml/day, Clavulanate total daily dose: ${(amoxDose / 400 * 57).toFixed(2)} mg or ${(amoxDose / 400 * 57 / (weight)).toFixed(2)} mg/kg/day`;
+                if ((amoxDose / 400 * 57) > 6.4 * weight ){
+                    result.innerHTML += `<br><span class="warning">**Warning: Clavulanate dose exceeds 6.4 mg/kg/day. Consult a healthcare professional.**</span>`;
+                }
+                result.innerHTML += `<br>Liquid form (600mg/42.9mg/5ml): ${(amoxDose / 600 * 5).toFixed(2)} ml/day\n\tClavulanate total daily dose: ${(amoxDose / 600 * 42.9).toFixed(2)} mg or ${(amoxDose / 600 * 42.9 / (weight)).toFixed(2)} mg/kg/day`;
+                if ((amoxDose / 600 * 42.9) > 6.4 * weight ){
+                    result.innerHTML += `<br><span class="warning">**Warning: Clavulanate dose exceeds 6.4 mg/kg/day. Consult a healthcare professional.**</span>`;
+                }
+            }
+        </script>
 
 
 
