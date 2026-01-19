@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Day Calculator</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Civic - CV Resume">
+	<meta name="keywords" content="resume, civic, onepage, creative, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->   
+	<link href="img/favicon.ico" rel="shortcut icon"/>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i,700" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="css/flaticon.css"/>
+	<link rel="stylesheet" href="css/owl.carousel.css"/>
+	<link rel="stylesheet" href="css/magnific-popup.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+
+
+
+
+</head>
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+	
+	<!-- Header section start -->
+	<header class="header-section">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4">
+                    <h1>Day Calculator</h1>
+				</div>
+				<div class="col-md-8 text-md-right header-buttons">
+					<a href="index.html" class="site-btn">Home</a>
+					<!--<a href="#" class="site-btn">Discover me</a> -->
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- Header section end -->
+
+    <div>
+        <!-- enter start date-->
+         <label for="startDate">Start Date:</label>
+         <input type="date" id="startDate" placeholder="mm/dd/yy" />
+
+
+        <!-- enter number of days-->
+         <label for="numDays">Number of Days to Add:</label>
+         <input type="number" id="numDays" />
+         <button onclick="calculateEndDate()">Calculate End Date</button>
+
+        <!-- display end date-->
+         <p>End Date: </p>
+         <p id="endDate"></p>
+    </div>
+
+    <script>
+        calculateEndDate(){
+            // Get input values
+            const startDateInput = document.getElementById('startDate').value;
+            const numDaysInput = parseInt(document.getElementById('numDays').value);
+
+            // Validate inputs
+            if (!startDateInput || isNaN(numDaysInput)) {
+                alert('Please enter a valid start date and number of days.');
+                return;
+            }
+
+            // Calculate end date
+            const startDate = new Date(startDateInput);
+            const endDate = new Date(startDate);
+            endDate.setDate(startDate.getDate() + numDaysInput);
+
+            // Display result
+            result.InnerHTML = endDate.toDateString();
+        }
+    </script>
+    
+
+
+
+
+
+	<!-- Footer section start -->
+	<footer class="footer-section">
+		<div class="container text-center">
+			<div class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distirbuted by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+</div>
+		</div>
+	</footer>
+	<!-- Footer section end -->
+
+
+	<!--====== Javascripts & Jquery ======-->
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/magnific-popup.min.js"></script>
+	<script src="js/circle-progress.min.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>

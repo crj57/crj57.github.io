@@ -45,7 +45,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-4">
-                    <h1>Pharmacy Calculator</h1>
+                    <h1 style="width: 800px">Pharmacy Calculator</h1>
 				</div>
 				<div class="col-md-8 text-md-right header-buttons">
 					<a href="index.html" class="site-btn">Home</a>
@@ -58,7 +58,7 @@
 
     <p>Disclaimer: Calculations must be re-checked and should not be used alone to guide patient care, nor should they substitute for clinical judgment.</p>
 
-    <div class="pediatric">
+    <div class="pediatric" style="padding: 20px;">
         <h2>Pediatric Dose Calculation</h2> 
         <label for="weight1">Weight:</label>
         <input type="number" id="weight1" placeholder="Weight in kg"><br>
@@ -80,7 +80,7 @@
         <button onclick="calculateDose()">Calculate Dose</button>
         <p id="result"></p>
     </div>
-    <div>   
+    <div style="padding: 20px;">   
         <h2>Clavulanate Total Daily Dose Check</h2>
         <label for="amoxDose">Total Daily Amoxicillin Dose:</label>
         <input type="number" id="amoxDose" placeholder="Dose in mg"><br>
@@ -166,7 +166,10 @@
             }
         </script>
 
-
+        <div style="padding: 20px;">
+            <a id="calendar" href = "day_calc.html"><img src = "img/calendar.png" style="transition: transform 0.2s ease; height: 30px; width: auto; padding: 0;"></a>
+            <p>Day Calculator</p>
+        </div>
 
 	<!-- Footer section start -->
 	<footer class="footer-section">

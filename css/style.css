@@ -373,6 +373,7 @@ ol {
 .header-section {
 	padding: 50px 40px;
 	background-color: rgba(43, 47, 48, 0.5);
+	max-height: 275px;
 }
 
 .site-logo h2 {
@@ -1445,3 +1446,11 @@ ol {
 #result { 
 	white-space: pre-wrap; 
  }
+
+#calendar {
+	cursor: pointer;
+}
+ 
+#calendar img:hover {
+	transform: scale(1.15);
+}
